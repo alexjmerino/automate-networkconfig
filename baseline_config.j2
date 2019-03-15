@@ -1,0 +1,44 @@
+!
+!
+hostname {{config['Hostname']}}
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree loopguard default
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree vlan 1-4094 priority {{config['ST_Priority']}}
+!
+!
+{% for id, name in config['vlans']|dictsort -%}
+vlan {{ id }}
+    name {{ name }}
+{% endfor %}
+!
+!
+interface range GigabitEthernet1/0/1 - 48
+ switchport access vlan {{config['Data_VLAN']}}
+ switchport mode access
+ switchport nonegotiate
+ switchport voice vlan {{config['Voice_VLAN']}}
+ spanning-tree portfast
+!
+!
+interface Vlan {{config['SVI_VLAN']}}
+ ip address {{config['SVI_Address']}} {{config['SVI_Subnet']}}
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ no ip route-cache
+!
+!
+ip default-gateway {{config['Default_GW']}}
+!
+!
+logging source-interface Vlan {{config['SVI_VLAN']}}
+!
+!
+ntp source vlan {{config['SVI_VLAN']}}
+!
+!
+end

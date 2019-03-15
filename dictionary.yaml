@@ -1,0 +1,27 @@
+---
+# This is the dictionary file that the Python Script reads from. Edit the below values to change output
+
+#Device Hostname
+Hostname: SITE-2960X-IDF1-SWA
+
+#Spanning-tree vlan 1-4094 priority (Default for environment is 61440)
+ST_Priority: 61440
+
+#Add the vlan IDs and names
+vlans:
+  10: SITE-IDF1_MGMT
+  20: SITE-IDF1_DATA
+  30: SITE-IDF1_VOICE
+
+
+#Specify Wired and Voice vlan IDs below for port 1/0/1 - 48 configuration
+Data_VLAN: 20
+Voice_VLAN: 30
+
+#Specify Management VLAN ID and IP Address
+SVI_VLAN: 10
+SVI_Address: 10.10.10.10
+SVI_Subnet: 255.255.255.0
+
+#Default Gateway Address
+Default_GW:  10.10.10.1
